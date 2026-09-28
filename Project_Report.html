@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Face Recognition & Attendance System - Interactive PDF Project Report</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 18mm 15mm 18mm 15mm;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        
+        a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .report-header {
+            border-bottom: 3px solid #6366f1;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .header-title {
+            font-size: 24pt;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+        .header-subtitle {
+            font-size: 13pt;
+            color: #6366f1;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .meta-table td {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .meta-label {
+            font-weight: 700;
+            color: #475569;
+            width: 20%;
+        }
+
+        .toc-box {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 20px 0 25px 0;
+        }
+        .toc-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 12pt;
+            color: #3730a3;
+        }
+        .toc-list {
+            margin: 0;
+            padding-left: 20px;
+            column-count: 2;
+            column-gap: 20px;
+        }
+        .toc-list li {
+            margin-bottom: 6px;
+            font-size: 10pt;
+        }
+        
+        h2 {
+            font-size: 15pt;
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 11.5pt;
+            color: #334155;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p, li {
+            font-size: 10pt;
+            color: #334155;
+        }
+
+        .summary-box {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 9pt;
+        }
+        table.data-table th, table.data-table td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        table.data-table th {
+            background-color: #4f46e5;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        table.data-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 7px;
+            font-size: 8pt;
+            font-weight: 700;
+            border-radius: 4px;
+            color: white;
+        }
+        .badge-get { background-color: #0ea5e9; }
+        .badge-post { background-color: #10b981; }
+        .badge-put { background-color: #f59e0b; }
+        .badge-delete { background-color: #ef4444; }
+
+        .arch-diagram {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            font-size: 8.5pt;
+            line-height: 1.4;
+            margin: 15px 0;
+            white-space: pre;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 8.5pt;
+            color: #94a3b8;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover / Header Section -->
+    <div class="report-header">
+        <h1 class="header-title">AI-Powered Face Recognition & Attendance System</h1>
+        <div class="header-subtitle">Interactive Technical Project Report & Documentation</div>
+        
+        <table class="meta-table">
+            <tr>
+                <td class="meta-label">Project Name:</td>
+                <td>Face Recognition & Attendance System</td>
+                <td class="meta-label">Project Directory:</td>
+                <td><code>C:\Advancejava\FaceRecognitionSystem</code></td>
+            </tr>
+            <tr>
+                <td class="meta-label">Technology Stack:</td>
+                <td>Java 25, Spring Boot 3.2.5, OpenCV 4.9, MySQL 8.0</td>
+                <td class="meta-label">Live App Link:</td>
+                <td><a href="http://localhost:8080" target="_blank">http://localhost:8080</a></td>
+            </tr>
+            <tr>
+                <td class="meta-label">Report Date:</td>
+                <td>September 26, 2026</td>
+                <td class="meta-label">Status:</td>
+                <td><span style="color: #10b981; font-weight: bold;">ACTIVE & RUNNING</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Clickable Table of Contents -->
+    <div class="toc-box">
+        <h3>📌 Clickable Table of Contents</h3>
+        <ol class="toc-list">
+            <li><a href="#sec1">Executive Summary</a></li>
+            <li><a href="#sec2">Key Features & Functionalities</a></li>
+            <li><a href="#sec3">System Architecture</a></li>
+            <li><a href="#sec4">Technology Stack Matrix</a></li>
+            <li><a href="#sec5">REST API Specifications</a></li>
+            <li><a href="#sec6">Database Schema Design</a></li>
+            <li><a href="#sec7">Execution & Access Guide</a></li>
+        </ol>
+    </div>
+
+    <!-- Executive Summary -->
+    <h2 id="sec1">1. Executive Summary</h2>
+    <div class="summary-box">
+        <strong>Project Overview:</strong> The AI Face Recognition & Attendance System is an enterprise web application engineered for contactless identity recognition, automated attendance logging, and workforce management. Built using Java 25, Spring Boot 3, and OpenCV Computer Vision, the platform extracts facial feature vectors from video frames, executes similarity matching against stored MySQL templates, and provides an interactive Admin Control Portal for workforce metrics and account management.
+        <br><br>
+        <strong>Direct Link to Live Application:</strong> <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
+    </div>
+
+    <!-- Core Features -->
+    <h2 id="sec2">2. Key Features & Functionalities</h2>
+    <ul>
+        <li><strong>Real-Time Facial Identification:</strong> Captures live video streams via HTML5 webcam, extracts facial feature vectors using OpenCV OpenPNP (<a href="https://openpnp.org" target="_blank">OpenPNP OpenCV 4.9.0</a>), and calculates similarity matching with a 70%+ threshold.</li>
+        <li><strong>Automated Attendance Logging:</strong> Automatically generates timestamped records in the MySQL <code>attendance_logs</code> table upon successful match verification.</li>
+        <li><strong>User Enrollment & Face Training:</strong> Snapshot capture interface allowing new users to enroll with full name, email address, company/department, and instant facial embedding encoding.</li>
+        <li><strong>Admin Control Center & Workforce Analytics:</strong>
+            <ul>
+                <li>Total enrolled users & company department statistics summary cards.</li>
+                <li>Visual grid displaying user distribution metrics per department/company.</li>
+                <li>Department filter dropdown for user directory inspection.</li>
+                <li><strong>Update User:</strong> Modal dialog to edit name, email, and department (<a href="#sec5"><code>PUT /api/users/{id}</code></a>).</li>
+                <li><strong>Delete User:</strong> Instant deletion of user records from MySQL with foreign key cascading (<a href="#sec5"><code>DELETE /api/users/{id}</code></a>).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- Architecture & Diagram -->
+    <h2 id="sec3">3. System Architecture</h2>
+    <div class="arch-diagram">
++-----------------------------------------------------------------------------------+
+|                            CLIENT / FRONTEND LAYER                                |
+|   HTML5 + Glassmorphism CSS3 + ES6 JavaScript (Fetch API & HTML5 Webcam Stream)   |
++-----------------------------------------------------------------------------------+
+                                         |
+                                         | REST APIs (JSON Payload)
+                                         v
++-----------------------------------------------------------------------------------+
+|                         SPRING BOOT BACKEND CONTROLLER                            |
+|                          FaceApiController (/api/...)                             |
++-----------------------------------------------------------------------------------+
+                                         |
+                       +-----------------+-----------------+
+                       |                                   |
+                       v                                   v
++---------------------------------------------+ +----------------------------------+
+|           COMPUTER VISION SERVICE           | |        PERSISTENCE LAYER         |
+|   FaceProcessorService (OpenCV 4.9.0)       | |  UserRepository (Spring JDBC)   |
+|   - Feature Extraction                      | |  - HikariCP Connection Pool    |
+|   - Vector Similarity Algorithm             | |  - MySQL 8.0 Database          |
++---------------------------------------------+ +----------------------------------+
+    </div>
+
+    <!-- Tech Stack Table -->
+    <h2 id="sec4">4. Technology Stack Matrix</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Layer</th>
+                <th>Technology</th>
+                <th>Version</th>
+                <th>Documentation Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Runtime</strong></td>
+                <td>Java JDK</td>
+                <td>25.0.2 / 17+</td>
+                <td><a href="https://docs.oracle.com/en/java/" target="_blank">Oracle Java Documentation</a></td>
+            </tr>
+            <tr>
+                <td><strong>Framework</strong></td>
+                <td>Spring Boot</td>
+                <td>3.2.5</td>
+                <td><a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot Docs</a></td>
+            </tr>
+            <tr>
+                <td><strong>Computer Vision</strong></td>
+                <td>OpenCV OpenPNP</td>
+                <td>4.9.0-0</td>
+                <td><a href="https://opencv.org" target="_blank">OpenCV Official Site</a></td>
+            </tr>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>MySQL Server</td>
+                <td>8.0+</td>
+                <td><a href="https://dev.mysql.com/doc/" target="_blank">MySQL Developer Docs</a></td>
+            </tr>
+            <tr>
+                <td><strong>Data Access</strong></td>
+                <td>Spring JDBC Template</td>
+                <td>3.2.5</td>
+                <td><a href="https://docs.spring.io/spring-framework/reference/data-access/jdbc.html" target="_blank">Spring JDBC Docs</a></td>
+            </tr>
+            <tr>
+                <td><strong>Frontend UI</strong></td>
+                <td>HTML5, Glassmorphism CSS3, JS</td>
+                <td>ES6+</td>
+                <td><a href="http://localhost:8080" target="_blank">Open App UI</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- REST API Specifications -->
+    <h2 id="sec5">5. Interactive REST API Specifications</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Request Payload</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge badge-get">GET</span></td>
+                <td><a href="http://localhost:8080/api/health" target="_blank"><code>/api/health</code></a></td>
+                <td>None</td>
+                <td>System health status & enrolled user count.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-post">POST</span></td>
+                <td><code>/api/register</code></td>
+                <td><code>{ name, email, department, imageBase64 }</code></td>
+                <td>Enrolls user, extracts face features, saves to MySQL.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-post">POST</span></td>
+                <td><code>/api/recognize</code></td>
+                <td><code>{ imageBase64 }</code></td>
+                <td>Analyzes webcam frame & logs attendance.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-get">GET</span></td>
+                <td><a href="http://localhost:8080/api/users" target="_blank"><code>/api/users</code></a></td>
+                <td>None</td>
+                <td>Returns list of all enrolled users.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-get">GET</span></td>
+                <td><a href="http://localhost:8080/api/logs" target="_blank"><code>/api/logs</code></a></td>
+                <td>None</td>
+                <td>Retrieves recent attendance recognition logs.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-get">GET</span></td>
+                <td><a href="http://localhost:8080/api/admin/stats" target="_blank"><code>/api/admin/stats</code></a></td>
+                <td>None</td>
+                <td>Returns company metrics & department user counts.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-put">PUT</span></td>
+                <td><code>/api/users/{id}</code></td>
+                <td><code>{ name, email, department }</code></td>
+                <td>Updates user details in MySQL.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-delete">DELETE</span></td>
+                <td><code>/api/users/{id}</code></td>
+                <td>None</td>
+                <td>Deletes user account and associated attendance records.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Database Schema -->
+    <h2 id="sec6">6. Database Schema Design</h2>
+    <h3>Table 1: <code>users</code></h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Field Name</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>id</code></td>
+                <td>BIGINT</td>
+                <td>PRIMARY KEY, AUTO_INCREMENT</td>
+                <td>Unique User ID</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td>VARCHAR(100)</td>
+                <td>NOT NULL</td>
+                <td>Employee Name</td>
+            </tr>
+            <tr>
+                <td><code>email</code></td>
+                <td>VARCHAR(100)</td>
+                <td>NOT NULL, UNIQUE</td>
+                <td>Email Address</td>
+            </tr>
+            <tr>
+                <td><code>department</code></td>
+                <td>VARCHAR(100)</td>
+                <td>DEFAULT 'General'</td>
+                <td>Company / Department</td>
+            </tr>
+            <tr>
+                <td><code>face_features</code></td>
+                <td>LONGTEXT</td>
+                <td>NULLABLE</td>
+                <td>JSON Array of Extracted Features</td>
+            </tr>
+            <tr>
+                <td><code>photo_base64</code></td>
+                <td>LONGTEXT</td>
+                <td>NULLABLE</td>
+                <td>Base64 Photo Snapshot</td>
+            </tr>
+            <tr>
+                <td><code>created_at</code></td>
+                <td>TIMESTAMP</td>
+                <td>DEFAULT CURRENT_TIMESTAMP</td>
+                <td>Registration Timestamp</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Table 2: <code>attendance_logs</code></h3>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Field Name</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>id</code></td>
+                <td>BIGINT</td>
+                <td>PRIMARY KEY, AUTO_INCREMENT</td>
+                <td>Log Entry ID</td>
+            </tr>
+            <tr>
+                <td><code>user_id</code></td>
+                <td>BIGINT</td>
+                <td>FOREIGN KEY (users.id)</td>
+                <td>User ID Reference</td>
+            </tr>
+            <tr>
+                <td><code>user_name</code></td>
+                <td>VARCHAR(100)</td>
+                <td>NOT NULL</td>
+                <td>Matched Name</td>
+            </tr>
+            <tr>
+                <td><code>department</code></td>
+                <td>VARCHAR(100)</td>
+                <td>NULLABLE</td>
+                <td>Company Department</td>
+            </tr>
+            <tr>
+                <td><code>confidence_score</code></td>
+                <td>DOUBLE</td>
+                <td>NOT NULL</td>
+                <td>Match Confidence %</td>
+            </tr>
+            <tr>
+                <td><code>status</code></td>
+                <td>VARCHAR(50)</td>
+                <td>DEFAULT 'SUCCESS'</td>
+                <td>Status Tag</td>
+            </tr>
+            <tr>
+                <td><code>timestamp</code></td>
+                <td>TIMESTAMP</td>
+                <td>DEFAULT CURRENT_TIMESTAMP</td>
+                <td>Access Timestamp</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- How to Run -->
+    <h2 id="sec7">7. Execution & Access Guide</h2>
+    <p>To access the running application:</p>
+    <ul>
+        <li>Click to open in browser: <a href="http://localhost:8080" target="_blank"><strong>http://localhost:8080</strong></a></li>
+        <li>Admin Stats Endpoint: <a href="http://localhost:8080/api/admin/stats" target="_blank"><strong>http://localhost:8080/api/admin/stats</strong></a></li>
+        <li>Users List Endpoint: <a href="http://localhost:8080/api/users" target="_blank"><strong>http://localhost:8080/api/users</strong></a></li>
+    </ul>
+
+    <!-- Footer -->
+    <div class="footer">
+        Face Recognition & Attendance System | Interactive PDF Documentation | Active Server: <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>
+    </div>
+
+</body>
+</html>
