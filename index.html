@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Face Recognition & Attendance Portal</title>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navbar -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="logo-icon"><i class="fa-solid fa-face-smile"></i></div>
+                <div class="brand-text">
+                    <h1>VisionID AI</h1>
+                    <span class="sub-brand">Face Recognition System</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <button class="nav-btn active" data-tab="scan-tab">
+                    <i class="fa-solid fa-camera"></i> Live Recognition
+                </button>
+                <button class="nav-btn" data-tab="register-tab">
+                    <i class="fa-solid fa-user-plus"></i> Enroll User
+                </button>
+                <button class="nav-btn" data-tab="roster-tab">
+                    <i class="fa-solid fa-users"></i> Users & Logs
+                </button>
+                <button class="nav-btn admin-btn" data-tab="admin-tab">
+                    <i class="fa-solid fa-user-shield"></i> Admin Portal
+                </button>
+            </nav>
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <span id="status-text">System Active</span>
+                <span class="badge" id="user-count-badge">0 Enrolled</span>
+            </div>
+        </header>
+
+        <!-- Main Content Body -->
+        <main class="content-body">
+            
+            <!-- TAB 1: LIVE RECOGNITION SCANNER -->
+            <section id="scan-tab" class="tab-pane active">
+                <div class="scanner-grid">
+                    <!-- Left: Camera View -->
+                    <div class="card camera-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-video"></i> Live Camera Feed</h2>
+                            <div class="camera-controls">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="auto-scan-toggle" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="toggle-label">Auto-Scan</span>
+                            </div>
+                        </div>
+
+                        <div class="webcam-wrapper">
+                            <video id="webcam-stream" autoplay playsinline muted></video>
+                            <canvas id="face-canvas"></canvas>
+                            
+                            <div class="scan-overlay" id="scan-overlay">
+                                <div class="scan-frame"></div>
+                                <div class="laser-line"></div>
+                            </div>
+
+                            <div class="camera-placeholder" id="camera-placeholder">
+                                <i class="fa-solid fa-camera-retro"></i>
+                                <p>Click "Start Camera" to initialize live scanner</p>
+                                <button class="btn btn-primary" id="btn-start-camera">
+                                    <i class="fa-solid fa-power-off"></i> Start Camera
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-primary" id="btn-manual-scan" disabled>
+                                <i class="fa-solid fa-expand"></i> Trigger Face Scan
+                            </button>
+                            <div id="scan-indicator" class="scan-indicator idle">
+                                <i class="fa-solid fa-circle-info"></i> Ready to scan
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Match Result & Log Card -->
+                    <div class="card match-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-id-card"></i> Recognition Result</h2>
+                        </div>
+
+                        <div class="match-content" id="match-content">
+                            <!-- Empty / Idle State -->
+                            <div class="match-empty" id="match-empty">
+                                <div class="pulse-ring"><i class="fa-solid fa-user-astronaut"></i></div>
+                                <h3>Awaiting Face Target</h3>
+                                <p>Position face in camera view to perform instant AI identity matching.</p>
+                            </div>
+
+                            <!-- Recognized State -->
+                            <div class="match-result hidden" id="match-result">
+                                <div class="user-avatar-container">
+                                    <img id="result-photo" src="" alt="Matched User">
+                                    <div class="match-badge" id="result-badge"><i class="fa-solid fa-check"></i> VERIFIED</div>
+                                </div>
+
+                                <h3 id="result-name">User Name</h3>
+                                <p class="dept-tag" id="result-dept"><i class="fa-solid fa-building"></i> Department</p>
+
+                                <div class="confidence-container">
+                                    <div class="confidence-header">
+                                        <span>AI Confidence Score</span>
+                                        <strong id="result-confidence">0.0%</strong>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" id="result-confidence-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="match-meta">
+                                    <div class="meta-item">
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span id="result-timestamp">--:--:--</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fa-solid fa-database"></i>
+                                        <span>Verified</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Recent Activity Feed -->
+                        <div class="recent-logs-section">
+                            <h3><i class="fa-solid fa-list-check"></i> Live Access Activity</h3>
+                            <div class="mini-logs-list" id="mini-logs-list">
+                                <p class="text-muted">No recognition events logged yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: USER ENROLLMENT -->
+            <section id="register-tab" class="tab-pane">
+                <div class="enrollment-grid">
+                    <div class="card form-card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-user-plus"></i> New User Enrollment</h2>
+                            <p>Capture face template & save user record</p>
+                        </div>
+
+                        <form id="enrollment-form">
+                            <div class="form-group">
+                                <label for="reg-name"><i class="fa-solid fa-user"></i> Full Name</label>
+                                <input type="text" id="reg-name" placeholder="e.g. Renuka Sharma" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reg-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                                <input type="email" id="reg-email" placeholder="e.g. renuka@company.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reg-dept"><i class="fa-solid fa-building"></i> Department / Role</label>
+                                <input type="text" id="reg-dept" placeholder="e.g. Engineering / AI Lab" required>
+                            </div>
+
+                            <div class="photo-capture-section">
+                                <label><i class="fa-solid fa-camera"></i> Facial Photo Snapshot</label>
+                                <div class="capture-box">
+                                    <div class="capture-preview-container">
+                                        <video id="reg-webcam-stream" autoplay playsinline muted></video>
+                                        <img id="reg-snapshot-img" class="hidden" alt="Snapshot preview">
+                                    </div>
+                                    <div class="capture-actions">
+                                        <button type="button" class="btn btn-secondary" id="btn-reg-capture">
+                                            <i class="fa-solid fa-aperture"></i> Capture Snapshot
+                                        </button>
+                                        <button type="button" class="btn btn-outline hidden" id="btn-reg-retake">
+                                            <i class="fa-solid fa-rotate-left"></i> Retake
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-block" id="btn-enroll-submit">
+                                    <i class="fa-solid fa-floppy-disk"></i> Register & Train Face
+                                </button>
+                            </div>
+
+                            <div id="enrollment-alert" class="alert hidden"></div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: USERS & LOGS DASHBOARD -->
+            <section id="roster-tab" class="tab-pane">
+                <div class="dashboard-stack">
+                    
+                    <!-- Registered Users Roster -->
+                    <div class="card">
+                        <div class="card-header flex-header">
+                            <div>
+                                <h2><i class="fa-solid fa-id-badge"></i> Enrolled Users Directory</h2>
+                                <p>All active face templates</p>
+                            </div>
+                            <button class="btn btn-secondary" id="btn-refresh-users">
+                                <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="users-grid" id="users-grid">
+                            <p class="text-muted">Loading registered users...</p>
+                        </div>
+                    </div>
+
+                    <!-- Attendance Log Table -->
+                    <div class="card">
+                        <div class="card-header flex-header">
+                            <div>
+                                <h2><i class="fa-solid fa-clock-rotate-left"></i> Attendance Recognition Logs</h2>
+                                <p>Historical face recognition events recorded</p>
+                            </div>
+                            <button class="btn btn-secondary" id="btn-refresh-logs">
+                                <i class="fa-solid fa-arrows-rotate"></i> Refresh Logs
+                            </button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>User Name</th>
+                                        <th>Department</th>
+                                        <th>AI Confidence</th>
+                                        <th>Status</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="logs-table-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading attendance logs...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB 4: ADMIN PORTAL -->
+            <section id="admin-tab" class="tab-pane">
+                <div class="dashboard-stack">
+                    
+                    <!-- Admin Hero Header Card -->
+                    <div class="card admin-hero-card">
+                        <div class="admin-hero-content">
+                            <div class="hero-shield-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div>
+                                <h2>Admin Control Center</h2>
+                                <p>Manage registered users, update records, delete accounts, and view company/department employee metrics.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Analytics & Overview -->
+                    <div class="admin-stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon purple"><i class="fa-solid fa-building-user"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Companies / Depts</span>
+                                <h3 id="admin-total-companies">0</h3>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Enrolled Users</span>
+                                <h3 id="admin-total-users">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company User Distribution Grid -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fa-solid fa-chart-pie"></i> Users per Company / Department</h2>
+                        </div>
+                        <div class="company-badge-grid" id="company-badge-grid">
+                            <p class="text-muted">Loading company stats...</p>
+                        </div>
+                    </div>
+
+                    <!-- User Management Directory -->
+                    <div class="card">
+                        <div class="card-header flex-header">
+                            <div>
+                                <h2><i class="fa-solid fa-users-gear"></i> User Management Directory</h2>
+                                <p>Update user information or delete user accounts</p>
+                            </div>
+                            <div class="admin-controls">
+                                <select id="admin-dept-filter" class="form-select">
+                                    <option value="ALL">All Companies / Depts</option>
+                                </select>
+                                <button class="btn btn-secondary" id="btn-refresh-admin">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Refresh Admin
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Company / Dept</th>
+                                        <th>Enrolled Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-table-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading users for management...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-pen"></i> Update User Details</h3>
+                <button class="modal-close-btn" id="btn-close-modal">&times;</button>
+            </div>
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-user-id">
+                <div class="form-group">
+                    <label for="edit-user-name"><i class="fa-solid fa-user"></i> Full Name</label>
+                    <input type="text" id="edit-user-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-user-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                    <input type="email" id="edit-user-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-user-dept"><i class="fa-solid fa-building"></i> Company / Department</label>
+                    <input type="text" id="edit-user-dept" required>
+                </div>
+                <div id="edit-user-alert" class="alert hidden"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-edit">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-edit">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="js/app.js"></script>
+</body>
+</html>
